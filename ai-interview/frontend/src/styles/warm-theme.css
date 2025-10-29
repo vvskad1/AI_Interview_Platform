@@ -1,0 +1,384 @@
+/* Warm Earth Tone Theme Styles */
+
+/* Override all blue colors with warm palette */
+.bg-blue-600, 
+.bg-blue-500,
+.bg-blue-50,
+.bg-blue-100,
+.bg-blue-200,
+.bg-blue-300,
+.bg-blue-400 {
+  background-color: #BB6C43 !important;
+}
+
+.text-blue-600,
+.text-blue-700,
+.text-blue-800,
+.text-blue-900 {
+  color: #BB6C43 !important;
+}
+
+.hover\:bg-blue-700:hover,
+.hover\:bg-blue-600:hover {
+  background-color: #C8906D !important;
+}
+
+.hover\:text-blue-900:hover,
+.hover\:text-blue-700:hover {
+  color: #C8906D !important;
+}
+
+/* Light blue backgrounds get medium warm color */
+.bg-blue-50 {
+  background-color: #CCB499 !important;
+}
+
+.bg-blue-100 {
+  background-color: #CCB499 !important;
+}
+
+.text-blue-50 {
+  color: #EBEFFE !important;
+}
+
+/* Override gradients with warm colors */
+.bg-gradient-to-br,
+.bg-gradient-to-r,
+.bg-gradient-to-tr {
+  background: linear-gradient(135deg, #CCB499 0%, #C8906D 50%, #BB6C43 100%) !important;
+}
+
+/* Dark backgrounds - Table headers and containers */
+.bg-slate-800,
+.bg-slate-900,
+.bg-gray-800,
+.bg-gray-900,
+th,
+thead th,
+.table-header,
+.thead-dark th {
+  background-color: #4A413C !important;
+  color: #C8906D !important;
+  border-color: #BB6C43 !important;
+}
+
+/* Search input backgrounds */
+.bg-slate-800 input,
+input[type="search"],
+.search-input,
+input[style*="background-color: rgb(30, 41, 59)"],
+input[placeholder*="Search"],
+input[placeholder*="search"] {
+  background-color: #EBEFFE !important;
+  color: #4A413C !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Force search container backgrounds */
+div[style*="backgroundColor: #EBEFFE"],
+div[style*="backgroundColor:#EBEFFE"] {
+  background-color: #EBEFFE !important;
+}
+
+/* Override any dark input styling */
+input[class*="bg-transparent"] {
+  background-color: transparent !important;
+  color: #4A413C !important;
+}
+
+/* Status and badge colors */
+.bg-orange-100,
+.bg-orange-200 {
+  background-color: #CCB499 !important;
+  color: #4A413C !important;
+}
+
+.text-orange-600,
+.text-orange-700,
+.text-orange-800 {
+  color: #BB6C43 !important;
+}
+
+/* Override any inline dark styles */
+[style*="background-color: rgb(30, 41, 59)"],
+[style*="background-color: rgb(15, 23, 42)"],
+[style*="background-color: rgb(51, 65, 85)"] {
+  background-color: #4A413C !important;
+}
+
+/* Filter and dropdown borders */
+.border-orange-500,
+.border-blue-500 {
+  border-color: #BB6C43 !important;
+}
+
+/* Gray background overrides */
+.bg-gray-100 {
+  background-color: #CCB499 !important;
+}
+
+.text-gray-800 {
+  color: #4A413C !important;
+}
+
+.border-gray-200 {
+  border-color: #BB6C43 !important;
+}
+
+/* Additional gray shades */
+.bg-gray-200,
+.bg-gray-300 {
+  background-color: #C8906D !important;
+}
+
+.text-gray-600,
+.text-gray-700 {
+  color: #4A413C !important;
+}
+
+/* AGGRESSIVE OVERRIDES - Applied last to ensure they take precedence */
+/* Force all table headers to use warm colors */
+table th,
+table thead th,
+.table th,
+.table thead th {
+  background-color: #4A413C !important;
+  color: #C8906D !important;
+  border-color: #BB6C43 !important;
+}
+
+/* Force all dark backgrounds to warm colors */
+[class*="bg-slate-"],
+[class*="bg-gray-8"],
+[class*="bg-gray-9"] {
+  background-color: #4A413C !important;
+  color: #C8906D !important;
+}
+
+/* Remove borders from all input elements */
+input,
+textarea,
+select {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Apply warm styling to inputs without inline background styles */
+input:not([style*="background"]),
+textarea:not([style*="background"]),
+select:not([style*="background"]) {
+  background-color: #EBEFFE !important;
+  color: #4A413C !important;
+}
+
+/* Remove focus rings and shadows */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Ensure placeholder text is readable */
+input::placeholder,
+textarea::placeholder {
+  color: #8B7355 !important;
+  opacity: 0.8 !important;
+}
+
+/* Force remove borders on all form elements */
+.border,
+.border-gray-200,
+.border-gray-300,
+[class*="border-gray"] {
+  border: none !important;
+}
+
+/* Override any remaining blue elements */
+[class*="bg-blue-"],
+[style*="background-color: blue"],
+[style*="background-color: #3B82F6"],
+[style*="background-color: #1E40AF"] {
+  background-color: #BB6C43 !important;
+}
+
+/* Override dark text colors */
+[class*="text-slate-"],
+[class*="text-gray-8"],
+[class*="text-gray-9"] {
+  color: #C8906D !important;
+}
+
+/* ULTRA SPECIFIC OVERRIDES for stubborn elements */
+/* Target the specific dark search bar */
+input[placeholder*="Search candidates"],
+input[placeholder*="search"],
+input[style*="slate"],
+input[style*="rgb(30"],
+input[style*="rgb(15"],
+.search-input,
+div[style*="background-color: rgb(30, 41, 59)"] input,
+div[style*="background-color: rgb(15, 23, 42)"] input {
+  background-color: #4A413C !important;
+  color: #EBEFFE !important;
+  border: 1px solid #BB6C43 !important;
+}
+
+/* Override any container that has dark background */
+div[style*="rgb(30, 41, 59)"],
+div[style*="rgb(15, 23, 42)"],
+div[style*="rgb(51, 65, 85)"] {
+  background-color: #4A413C !important;
+}
+
+/* Force all inputs to warm theme */
+input,
+textarea,
+select {
+  background-color: #EBEFFE !important;
+  border-color: #CCB499 !important;
+  color: #4A413C !important;
+}
+
+/* Dark inputs specifically */
+input[style*="background-color: rgb(30"],
+input[style*="background-color: rgb(15"],
+input[class*="bg-slate"] {
+  background-color: #4A413C !important;
+  color: #EBEFFE !important;
+  border-color: #BB6C43 !important;
+}
+
+/* NUCLEAR OPTION - Override any element with dark blue inline styles */
+*[style*="background-color: rgb(30, 41, 59)"] {
+  background-color: #4A413C !important;
+}
+
+*[style*="background-color: rgb(15, 23, 42)"] {
+  background-color: #4A413C !important;
+}
+
+*[style*="background-color: rgb(51, 65, 85)"] {
+  background-color: #4A413C !important;
+}
+
+/* Force placeholder text color */
+::placeholder {
+  color: #CCB499 !important;
+  opacity: 0.8;
+}
+
+input::placeholder {
+  color: #CCB499 !important;
+}
+
+/* Override any remaining blue gradients */
+[class*="from-blue"],
+[class*="to-blue"],
+[class*="via-blue"] {
+  background: linear-gradient(135deg, #CCB499 0%, #C8906D 50%, #BB6C43 100%) !important;
+}
+
+/* Override focus rings */
+.focus\:ring-blue-500:focus {
+  --tw-ring-color: #BB6C43 !important;
+}
+
+.focus\:border-blue-500:focus {
+  border-color: #BB6C43 !important;
+}
+
+/* Sidebar hover effects */
+.sidebar-nav-item:hover {
+  background-color: rgba(187, 108, 67, 0.1) !important;
+}
+
+/* Header button hover effects */
+.header-button:hover {
+  background-color: rgba(74, 65, 60, 0.1) !important;
+}
+
+/* Card backgrounds */
+.warm-card {
+  background-color: #EBEFFE;
+  border: 1px solid #CCB499;
+}
+
+.warm-card-secondary {
+  background-color: #CCB499;
+  color: #4A413C;
+}
+
+/* Button styles */
+.btn-warm-primary {
+  background-color: #BB6C43;
+  color: #EBEFFE;
+  border: none;
+}
+
+.btn-warm-primary:hover {
+  background-color: #C8906D;
+}
+
+.btn-warm-secondary {
+  background-color: #C8906D;
+  color: #4A413C;
+  border: 1px solid #BB6C43;
+}
+
+.btn-warm-secondary:hover {
+  background-color: #CCB499;
+}
+
+/* Text colors */
+.text-warm-primary {
+  color: #BB6C43;
+}
+
+.text-warm-dark {
+  color: #4A413C;
+}
+
+.text-warm-light {
+  color: #EBEFFE;
+}
+
+/* Background utilities */
+.bg-warm-light {
+  background-color: #EBEFFE;
+}
+
+.bg-warm-medium {
+  background-color: #CCB499;
+}
+
+/* High specificity overrides for search inputs */
+.space-y-6 input[placeholder*="Search candidates"],
+.bg-white input[placeholder*="Search candidates"],
+div[style*="#EBEFFE"] input {
+  background-color: #EBEFFE !important;
+  color: #4A413C !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Force remove any dark styling on search containers */
+.bg-white .flex.items-center input {
+  background: transparent !important;
+  color: #4A413C !important;
+}
+
+.bg-warm-primary {
+  background-color: #BB6C43;
+}
+
+.bg-warm-dark {
+  background-color: #4A413C;
+}
+
+/* Progress bars and status indicators */
+.bg-blue-400\/20 {
+  background-color: rgba(200, 144, 109, 0.2) !important;
+}

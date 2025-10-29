@@ -1,0 +1,368 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Users, 
+  Briefcase, 
+  Mail, 
+  PlayCircle, 
+  TrendingUp, 
+  Calendar,
+  Award,
+  Target,
+  Activity,
+  BarChart3,
+  Clock,
+  CheckCircle2
+} from 'lucide-react';
+import { StatCard, StatsGrid, Card, Alert } from '../../components/ui';
+
+interface DashboardStats {
+  candidates: {
+    total: number;
+    active: number;
+    hired: number;
+    recentApplications: number;
+  };
+  jobs: {
+    total: number;
+    active: number;
+    filled: number;
+    recentPosts: number;
+  };
+  interviews: {
+    total: number;
+    scheduled: number;
+    completed: number;
+    avgScore: number;
+  };
+  system: {
+    uptime: string;
+    activeUsers: number;
+    lastBackup: string;
+  };
+}
+
+const Dashboard: React.FC = () => {
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    loadStats();
+  }, []);
+
+  const loadStats = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      // Simulate API call with mock data for now
+      // In production, replace with actual API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const mockStats: DashboardStats = {
+        candidates: {
+          total: 245,
+          active: 189,
+          hired: 34,
+          recentApplications: 12
+        },
+        jobs: {
+          total: 28,
+          active: 15,
+          filled: 8,
+          recentPosts: 3
+        },
+        interviews: {
+          total: 156,
+          scheduled: 8,
+          completed: 148,
+          avgScore: 7.2
+        },
+        system: {
+          uptime: '99.9%',
+          activeUsers: 23,
+          lastBackup: '2 hours ago'
+        }
+      };
+      
+      setStats(mockStats);
+    } catch (err) {
+      console.error('Failed to load dashboard stats:', err);
+      setError('Failed to load dashboard data. Please try refreshing the page.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getTimeOfDayGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 18) return 'Good afternoon';
+    return 'Good evening';
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Welcome Header */}
+      <div className="bg-gradient-to-r from-primary to-primary-dark rounded-2xl p-8 text-white">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">
+              {getTimeOfDayGreeting()}, Admin! 👋
+            </h1>
+            <p className="text-primary-light text-lg">
+              Here's what's happening with your AI Interview platform today.
+            </p>
+          </div>
+          <div className="hidden lg:block">
+            <div className="bg-white bg-opacity-20 rounded-xl p-4 text-center">
+              <Calendar className="w-8 h-8 mx-auto mb-2" />
+              <div className="font-semibold">
+                {new Date().toLocaleDateString('en-US', { 
+                  month: 'short', 
+                  day: 'numeric',
+                  year: 'numeric'
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Error Alert */}
+      {error && (
+        <Alert
+          type="error"
+          title="Error Loading Dashboard"
+          description={error}
+          dismissible
+          onDismiss={() => setError(null)}
+        />
+      )}
+
+      {/* Key Metrics */}
+      <div>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Key Metrics</h2>
+        <StatsGrid>
+          <StatCard
+            title="Total Candidates"
+            value={stats?.candidates.total || 0}
+            change={{
+              value: 8.2,
+              type: 'positive',
+              label: 'vs last month'
+            }}
+            icon={<Users size={24} />}
+            iconVariant="primary"
+            loading={loading}
+          />
+          <StatCard
+            title="Active Jobs"
+            value={stats?.jobs.active || 0}
+            change={{
+              value: 12.5,
+              type: 'positive',
+              label: 'vs last month'
+            }}
+            icon={<Briefcase size={24} />}
+            iconVariant="success"
+            loading={loading}
+          />
+          <StatCard
+            title="Interviews Scheduled"
+            value={stats?.interviews.scheduled || 0}
+            change={{
+              value: -2.1,
+              type: 'negative',
+              label: 'vs last week'
+            }}
+            icon={<Calendar size={24} />}
+            iconVariant="warning"
+            loading={loading}
+          />
+          <StatCard
+            title="Average Score"
+            value={`${stats?.interviews.avgScore || 0}/10`}
+            change={{
+              value: 4.3,
+              type: 'positive',
+              label: 'vs last month'
+            }}
+            icon={<Award size={24} />}
+            iconVariant="info"
+            loading={loading}
+          />
+        </StatsGrid>
+      </div>
+
+      {/* Secondary Metrics */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Recruitment Pipeline */}
+        <Card>
+          <Card.Header>
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <Target className="w-5 h-5 text-primary" />
+              Recruitment Pipeline
+            </h3>
+          </Card.Header>
+          <Card.Body>
+            {loading ? (
+              <div className="animate-pulse space-y-4">
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-600">Active Candidates</span>
+                  <span className="font-semibold text-gray-900">{stats?.candidates.active}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-600">Recent Applications</span>
+                  <span className="font-semibold text-success">+{stats?.candidates.recentApplications}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-600">Successful Hires</span>
+                  <span className="font-semibold text-primary">{stats?.candidates.hired}</span>
+                </div>
+                <div className="pt-2 border-t">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-500">Conversion Rate</span>
+                    <span className="text-sm font-medium text-success">
+                      {stats ? ((stats.candidates.hired / stats.candidates.total) * 100).toFixed(1) : 0}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </Card.Body>
+        </Card>
+
+        {/* System Health */}
+        <Card>
+          <Card.Header>
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <Activity className="w-5 h-5 text-success" />
+              System Health
+            </h3>
+          </Card.Header>
+          <Card.Body>
+            {loading ? (
+              <div className="animate-pulse space-y-4">
+                <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-600">System Uptime</span>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-success" />
+                    <span className="font-semibold text-success">{stats?.system.uptime}</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-600">Active Users</span>
+                  <span className="font-semibold text-gray-900">{stats?.system.activeUsers}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-600">Last Backup</span>
+                  <span className="font-semibold text-gray-900">{stats?.system.lastBackup}</span>
+                </div>
+                <div className="pt-2 border-t">
+                  <div className="flex items-center gap-2 text-sm text-success">
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>All systems operational</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </Card.Body>
+        </Card>
+      </div>
+
+      {/* Recent Activity */}
+      <Card>
+        <Card.Header>
+          <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <Clock className="w-5 h-5 text-info" />
+            Recent Activity
+          </h3>
+        </Card.Header>
+        <Card.Body>
+          {loading ? (
+            <div className="animate-pulse space-y-3">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+                  <div className="flex-1">
+                    <div className="h-3 bg-gray-200 rounded w-3/4 mb-1"></div>
+                    <div className="h-2 bg-gray-200 rounded w-1/2"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-success-light rounded-full flex items-center justify-center">
+                  <Users className="w-4 h-4 text-success" />
+                </div>
+                <div>
+                  <div className="font-medium text-gray-900">New candidate registered</div>
+                  <div className="text-sm text-gray-500">John Smith applied for Senior Developer position</div>
+                </div>
+                <div className="text-sm text-gray-400 ml-auto">2 minutes ago</div>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-primary-light rounded-full flex items-center justify-center">
+                  <PlayCircle className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <div className="font-medium text-gray-900">Interview completed</div>
+                  <div className="text-sm text-gray-500">Sarah Johnson completed React Developer interview</div>
+                </div>
+                <div className="text-sm text-gray-400 ml-auto">1 hour ago</div>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-warning-light rounded-full flex items-center justify-center">
+                  <Briefcase className="w-4 h-4 text-warning" />
+                </div>
+                <div>
+                  <div className="font-medium text-gray-900">New job posted</div>
+                  <div className="text-sm text-gray-500">Product Manager position added to job board</div>
+                </div>
+                <div className="text-sm text-gray-400 ml-auto">3 hours ago</div>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-info-light rounded-full flex items-center justify-center">
+                  <Mail className="w-4 h-4 text-info" />
+                </div>
+                <div>
+                  <div className="font-medium text-gray-900">Interview invites sent</div>
+                  <div className="text-sm text-gray-500">5 candidates invited for Frontend Developer interviews</div>
+                </div>
+                <div className="text-sm text-gray-400 ml-auto">5 hours ago</div>
+              </div>
+            </div>
+          )}
+        </Card.Body>
+      </Card>
+          
+          <div className="card text-center">
+            <h3>Pending Invites</h3>
+            <div style={{ fontSize: '36px', fontWeight: 'bold', color: '#ffc107' }}>
+            )}
+          </Card.Body>
+        </Card>
+      </Card>
+    </div>
+  );
+};
+
+export default Dashboard;

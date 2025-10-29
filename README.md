@@ -1,0 +1,1 @@
+AI-Powered Interview Platform - A comprehensive full-stack solution for conducting automated technical interviews with real-time proctoring, speech-to-text evaluation, and AI-driven candidate assessment. Built with FastAPI, React, PostgreSQL, and Groq AI.

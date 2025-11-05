@@ -1,32 +1,47 @@
-# AI Interview Platform
+# 🎤 AI Interview Platform
 
-A comprehensive AI-powered interview platform with speech-to-text capabilities, real-time proctoring, and automated evaluation.
+> **A next-generation AI-powered interview platform that revolutionizes technical recruitment with voice-based assessments, real-time proctoring, and intelligent evaluation.**
+
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+
+## 📋 Overview
+
+Transform your recruitment process with an AI-powered platform that conducts automated technical interviews through natural voice interactions. Leveraging cutting-edge AI models from Groq (Whisper for transcription, LLaMA for evaluation), this platform delivers comprehensive candidate assessments with built-in integrity monitoring and detailed analytics.
 
 ## 🎯 Features
 
-### Core Features
-- **Voice-based Interviews**: Candidates answer questions by voice, questions displayed as text
-- **AI-Powered Evaluation**: GROQ API integration for transcription (Whisper) and evaluation (LLaMA)
-- **Real-time Proctoring**: Tab monitoring, face presence detection, risk assessment
-- **Strict Timing**: Configurable answer timeouts with 10-second buffer periods
-- **RAG System**: Context-aware question generation using job descriptions and resumes
-- **Email Integration**: OTP verification, calendar invites, automated notifications
-- **PDF Reports**: Comprehensive session reports with transcripts and proctoring data
+### 🎙️ Core Interview Features
+- **Voice-based Interviews**: Natural conversation - candidates answer questions by voice, questions displayed as text
+- **AI-Powered Evaluation**: Groq API integration for real-time transcription (Whisper) and intelligent evaluation (LLaMA 70B)
+- **Smart Question Generation**: RAG-powered system generates contextual questions from job descriptions and resumes
+- **Dynamic Follow-ups**: AI generates relevant follow-up questions based on candidate responses
+- **Strict Timing**: Configurable answer timeouts with automatic progression (default: 90s + 10s buffer)
 
-### Admin Features
-- **Candidate Management**: Add candidates, upload/parse resumes
-- **Job Management**: Create jobs with descriptions (text or PDF upload)
-- **Interview Scheduling**: Create time-windowed invites with calendar integration
-- **Session Monitoring**: Real-time view of active interviews with risk indicators
-- **Comprehensive Reporting**: Download detailed PDFs with scores, timing, and integrity data
+### 🛡️ Security & Proctoring
+- **Real-time Monitoring**: Tab switching detection, face presence tracking, activity logging
+- **Risk Assessment**: Automated integrity scoring with configurable thresholds
+- **Strict Mode**: Enhanced monitoring for high-stakes technical interviews
+- **Complete Audit Trail**: Timestamped event logging for compliance
 
-### Technical Features
-- **FastAPI Backend**: High-performance async API with SQLAlchemy ORM
-- **React Frontend**: Modern TypeScript frontend with responsive design
-- **PostgreSQL Database**: Robust data persistence with proper indexing
-- **Redis Integration**: OTP storage, session caching
-- **WebRTC Audio**: High-quality audio recording with real-time level monitoring
-- **Vector Search**: FAISS + Sentence Transformers for intelligent question generation
+### 👨‍💼 Admin Dashboard
+- **Candidate Management**: Bulk upload, resume parsing (PDF), profile management
+- **Job Management**: Create roles with rich descriptions (text or PDF upload)
+- **Interview Scheduling**: Time-windowed invites with automated calendar integration
+- **Live Monitoring**: Real-time session tracking with risk indicators and progress bars
+- **Analytics & Reports**: Downloadable PDF reports with scores, transcripts, and integrity data
+
+### 🔧 Technical Highlights
+- **FastAPI Backend**: High-performance async Python API with SQLAlchemy ORM
+- **React + TypeScript Frontend**: Modern, responsive UI with real-time updates
+- **PostgreSQL Database**: Robust relational database with proper indexing
+- **Redis Integration**: Fast OTP storage and session caching
+- **WebRTC Audio**: High-quality browser-based audio recording
+- **Vector Search**: FAISS + Sentence Transformers for intelligent content retrieval
+- **Email Automation**: OTP verification, calendar invites (.ics), automated notifications
 
 ## 🏗️ Architecture
 
@@ -389,12 +404,25 @@ CREATE INDEX idx_invite_window ON invites(window_start, window_end);
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🆘 Support
+## 🙏 Acknowledgments
 
-- **Documentation**: Check this README and inline code comments
-- **Issues**: Report bugs via GitHub issues
-- **Email**: Contact support team for enterprise inquiries
+- **Groq** for providing fast AI inference
+- **FastAPI** for the excellent web framework
+- **React** & **Vite** for modern frontend tooling
+- **PostgreSQL** for robust data management
+
+## 📞 Contact & Support
+
+- **Issues**: Report bugs via [GitHub Issues](https://github.com/vvskad1/AI_Interview_Platform/issues)
+- **Discussions**: Join community discussions
+- **Email**: Contact for enterprise inquiries
 
 ---
 
+<div align="center">
+
 **Built with ❤️ for modern, AI-powered recruiting**
+
+⭐ Star this repo if you find it helpful!
+
+</div>

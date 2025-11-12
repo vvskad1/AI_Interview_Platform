@@ -15,11 +15,11 @@ class Settings(BaseSettings):
     backend_base_url: str = "http://localhost:8000"
     
     # Email Configuration
-    smtp_host: str
+    smtp_host: str = "smtp.gmail.com"
     smtp_port: int = 587
-    smtp_user: str
-    smtp_pass: str
-    mail_from: str
+    smtp_user: str = ""
+    smtp_pass: str = ""
+    mail_from: str = "noreply@example.com"
     
     # Redis
     redis_url: str = "redis://localhost:6379/0"

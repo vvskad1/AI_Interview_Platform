@@ -19,6 +19,7 @@ class EmailService:
         self.smtp_user = settings.smtp_user
         self.smtp_pass = settings.smtp_pass
         self.mail_from = settings.mail_from
+        self.smtp_configured = bool(self.smtp_user and self.smtp_pass)
         try:
             self.redis_client = get_redis()
         except Exception as e:
@@ -28,6 +29,10 @@ class EmailService:
     
     def _send_email(self, to_email: str, subject: str, body_html: str, attachment_data: Optional[bytes] = None, attachment_name: Optional[str] = None):
         """Send email with optional attachment"""
+        if not self.smtp_configured:
+            print(f"SMTP not configured - Email skipped: {subject} to {to_email}")
+            return
+            
         message = MimeMultipart("alternative")
         message["Subject"] = subject
         message["From"] = self.mail_from

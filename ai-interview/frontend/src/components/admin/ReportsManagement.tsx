@@ -96,7 +96,7 @@ const ReportsManagement: React.FC = () => {
       if (filters.maxScore) params.append('max_score', filters.maxScore);
       if (filters.riskLevel) params.append('risk_level', filters.riskLevel);
 
-      const response = await fetch(`http://localhost:8000/api/admin/reports/?${params}`);
+      const response = await fetch(`/api/admin/reports/?${params}`);
       if (response.ok) {
         const data = await response.json();
         setReports(data);
@@ -116,7 +116,7 @@ const ReportsManagement: React.FC = () => {
       if (filters.dateTo) params.append('date_to', filters.dateTo);
       if (filters.department) params.append('department', filters.department);
 
-      const response = await fetch(`http://localhost:8000/api/admin/reports/analytics?${params}`);
+      const response = await fetch(`/api/admin/reports/analytics?${params}`);
       if (response.ok) {
         const data = await response.json();
         setAnalytics(data);
@@ -155,7 +155,7 @@ const ReportsManagement: React.FC = () => {
 
   const downloadReport = async (sessionId: number, format: 'pdf' | 'json') => {
     try {
-      const response = await fetch(`http://localhost:8000/api/admin/reports/${sessionId}/download?format=${format}`);
+      const response = await fetch(`/api/admin/reports/${sessionId}/download?format=${format}`);
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
@@ -177,7 +177,7 @@ const ReportsManagement: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/admin/reports/bulk-export', {
+      const response = await fetch('/api/admin/reports/bulk-export', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -204,7 +204,7 @@ const ReportsManagement: React.FC = () => {
 
   const deleteReport = async (report: ReportSummary) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/admin/reports/${report.session_id}`, {
+      const response = await fetch(`/api/admin/reports/${report.session_id}`, {
         method: 'DELETE',
       });
 

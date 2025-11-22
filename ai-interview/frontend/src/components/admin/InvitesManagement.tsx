@@ -101,7 +101,7 @@ const InvitesManagement: React.FC = () => {
         ...(filterJob && { job_id: filterJob })
       });
 
-      const response = await fetch(`http://localhost:8000/api/admin/invites/?${params}`);
+      const response = await fetch(`/api/admin/invites/?${params}`);
       const data = await response.json();
       setInvites(data.invites);
       setTotalInvites(data.total);
@@ -114,7 +114,7 @@ const InvitesManagement: React.FC = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/admin/invites/stats');
+      const response = await fetch('/api/admin/invites/stats');
       const data = await response.json();
       setStats(data);
     } catch (error) {
@@ -125,12 +125,12 @@ const InvitesManagement: React.FC = () => {
   const fetchJobsAndCandidates = async () => {
     try {
       // Fetch jobs
-      const jobsResponse = await fetch('http://localhost:8000/api/admin/jobs/');
+      const jobsResponse = await fetch('/api/admin/jobs/');
       const jobsData = await jobsResponse.json();
       setJobs(jobsData.jobs || []);
 
       // Fetch candidates
-      const candidatesResponse = await fetch('http://localhost:8000/api/admin/candidates/');
+      const candidatesResponse = await fetch('/api/admin/candidates/');
       const candidatesData = await candidatesResponse.json();
       setCandidates(candidatesData.candidates || []);
     } catch (error) {
@@ -145,7 +145,7 @@ const InvitesManagement: React.FC = () => {
       const expirationDate = formData.expires_at || 
         new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
 
-      const response = await fetch('http://localhost:8000/api/admin/invites/', {
+      const response = await fetch('/api/admin/invites/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ const InvitesManagement: React.FC = () => {
 
   const deleteInvite = async (invite: Invite) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/admin/invites/${invite.id}`, {
+      const response = await fetch(`/api/admin/invites/${invite.id}`, {
         method: 'DELETE',
       });
 
@@ -193,7 +193,7 @@ const InvitesManagement: React.FC = () => {
 
   const resendEmail = async (inviteId: number) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/admin/invites/${inviteId}/resend-email`, {
+      const response = await fetch(`/api/admin/invites/${inviteId}/resend-email`, {
         method: 'POST',
       });
 
@@ -210,7 +210,7 @@ const InvitesManagement: React.FC = () => {
 
   const viewInviteDetails = async (inviteId: number) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/admin/invites/${inviteId}`);
+      const response = await fetch(`/api/admin/invites/${inviteId}`);
       const inviteDetails = await response.json();
       setSelectedInvite(inviteDetails);
       setShowDetailsModal(true);
@@ -230,7 +230,7 @@ const InvitesManagement: React.FC = () => {
       newExpiry.setDate(newExpiry.getDate() + 7);
       const expiresAt = newExpiry.toISOString();
 
-      const response = await fetch(`http://localhost:8000/api/admin/invites/${invite.id}/reinvite`, {
+      const response = await fetch(`/api/admin/invites/${invite.id}/reinvite`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

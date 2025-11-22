@@ -120,7 +120,7 @@ const SessionsManagement: React.FC = () => {
         ...(filterJob && { job_id: filterJob })
       });
 
-      const response = await fetch(`http://localhost:8000/api/admin/sessions/?${params}`);
+      const response = await fetch(`/api/admin/sessions/?${params}`);
       const data = await response.json();
       setSessions(data.sessions || []);
       setTotalSessions(data.total || 0);
@@ -134,7 +134,7 @@ const SessionsManagement: React.FC = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/admin/sessions/stats');
+      const response = await fetch('/api/admin/sessions/stats');
       const data = await response.json();
       setStats(data);
     } catch (error) {
@@ -144,7 +144,7 @@ const SessionsManagement: React.FC = () => {
 
   const fetchActiveSessions = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/admin/sessions/active/monitor');
+      const response = await fetch('/api/admin/sessions/active/monitor');
       const data = await response.json();
       setActiveSessions(data.active_sessions || []);
     } catch (error) {
@@ -155,7 +155,7 @@ const SessionsManagement: React.FC = () => {
 
   const viewSessionDetails = async (sessionId: number) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/admin/sessions/${sessionId}`);
+      const response = await fetch(`/api/admin/sessions/${sessionId}`);
       const sessionDetails = await response.json();
       setSelectedSession(sessionDetails);
       setShowDetailsModal(true);
@@ -166,7 +166,7 @@ const SessionsManagement: React.FC = () => {
 
   const updateSession = async (sessionId: number, updateData: any) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/admin/sessions/${sessionId}`, {
+      const response = await fetch(`/api/admin/sessions/${sessionId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ const SessionsManagement: React.FC = () => {
 
   const deleteSession = async (session: Session) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/admin/sessions/${session.id}`, {
+      const response = await fetch(`/api/admin/sessions/${session.id}`, {
         method: 'DELETE',
       });
 

@@ -14,6 +14,7 @@ from ..schemas import (
     InviteDetailsResponse
 )
 from ..services.emailer import email_service
+from ..config import settings
 
 router = APIRouter(prefix="/api/admin/invites", tags=["admin-invites"])
 
@@ -256,7 +257,7 @@ async def get_invite_details(invite_id: int, db: Session = Depends(get_db)):
         expires_at=invite.expires_at,
         created_at=invite.created_at,
         updated_at=invite.updated_at,
-        interview_url=f"http://localhost:5173/i/{invite.invite_code}"
+        interview_url=f"{settings.public_base_url}/i/{invite.invite_code}"
     )
 
 
@@ -383,7 +384,7 @@ async def resend_invitation_email(invite_id: int, db: Session = Depends(get_db))
 async def send_invitation_email(invite: Invite, candidate: Candidate, job: Job):
     """Send invitation email to candidate"""
     
-    interview_url = f"http://localhost:5173/i/{invite.invite_code}"
+    interview_url = f"{settings.public_base_url}/i/{invite.invite_code}"
     
     # Create email content
     subject = f"Interview Invitation - {job.title}"

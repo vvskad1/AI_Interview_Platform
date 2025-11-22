@@ -21,6 +21,24 @@ class Settings(BaseSettings):
     smtp_pass: str = ""
     mail_from: str = "noreply@example.com"
     
+    # Alternative names for docker-compose compatibility
+    smtp_server: Optional[str] = None
+    smtp_username: Optional[str] = None
+    smtp_password: Optional[str] = None
+    from_email: Optional[str] = None
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        # Map docker-compose variable names to internal names
+        if self.smtp_server:
+            self.smtp_host = self.smtp_server
+        if self.smtp_username:
+            self.smtp_user = self.smtp_username
+        if self.smtp_password:
+            self.smtp_pass = self.smtp_password
+        if self.from_email:
+            self.mail_from = self.from_email
+    
     # Redis
     redis_url: str = "redis://localhost:6379/0"
     
@@ -56,3 +74,4 @@ settings = Settings()
 
 # Ensure audio storage directory exists
 os.makedirs(settings.audio_storage_path, exist_ok=True)
+

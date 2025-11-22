@@ -368,29 +368,139 @@ CREATE INDEX idx_invite_window ON invites(window_start, window_end);
 - Implement audio compression for large files
 - Add request timeout handling
 
-## 🛣️ Roadmap
+## 🚀 Deployment
 
-### Phase 1 (Complete)
-- ✅ Core interview flow
-- ✅ Basic proctoring
-- ✅ Admin interface
-- ✅ PDF reports
+### Prerequisites
+```bash
+# Update system
+sudo apt update && sudo apt upgrade -y
 
-### Phase 2 (Future)
-- 🔄 Advanced face detection (ML-based)
-- 🔄 Multi-language support
-- 🔄 Advanced analytics dashboard
-- 🔄 Integration APIs (ATS systems)
-- 🔄 Mobile app support
-- 🔄 Live interview mode
-- 🔄 Candidate practice mode
+# Install dependencies
+sudo apt install python3.11 python3-pip python3-venv postgresql redis-server nginx certbot python3-certbot-nginx git -y
+```
 
-### Phase 3 (Future)
-- 🔄 AI interviewer avatars
-- 🔄 Advanced behavioral analysis
-- 🔄 Integration with HR systems
-- 🔄 White-label solutions
-- 🔄 Enterprise SSO
+### Backend Deployment
+
+```bash
+# Clone repository
+git clone https://github.com/vvskad1/AI_Interview_Platform.git
+cd AI_Interview_Platform/backend
+
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure environment
+cp .env.example .env
+nano .env  # Edit with production values
+
+# Setup database
+sudo -u postgres psql
+CREATE DATABASE ai_interview;
+CREATE USER interview_user WITH PASSWORD 'strong_password';
+GRANT ALL PRIVILEGES ON DATABASE ai_interview TO interview_user;
+\q
+
+# Run migrations (if using Alembic)
+alembic upgrade head
+
+# Create systemd service
+sudo nano /etc/systemd/system/ai-interview.service
+```
+
+**Service file content:**
+```ini
+[Unit]
+Description=AI Interview Backend
+After=network.target postgresql.service redis.service
+
+[Service]
+User=www-data
+WorkingDirectory=/path/to/AI_Interview_Platform/backend
+Environment="PATH=/path/to/AI_Interview_Platform/backend/venv/bin"
+ExecStart=/path/to/AI_Interview_Platform/backend/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+# Start backend service
+sudo systemctl daemon-reload
+sudo systemctl enable ai-interview
+sudo systemctl start ai-interview
+sudo systemctl status ai-interview
+```
+
+### Frontend Deployment
+
+```bash
+# Install Node.js
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt install -y nodejs
+
+# Build frontend
+cd ../frontend
+npm install
+npm run build
+
+# Copy to web directory
+sudo mkdir -p /var/www/ai-interview
+sudo cp -r dist/* /var/www/ai-interview/
+```
+
+### Nginx Configuration
+
+```bash
+# Create nginx config
+sudo nano /etc/nginx/sites-available/ai-interview
+```
+
+**Nginx config:**
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com;
+
+    # Frontend
+    location / {
+        root /var/www/ai-interview;
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Backend API
+    location /api {
+        proxy_pass http://localhost:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+```bash
+# Enable site
+sudo ln -s /etc/nginx/sites-available/ai-interview /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+
+# Setup SSL
+sudo certbot --nginx -d yourdomain.com
+```
+
+### Production Checklist
+- [ ] Environment variables configured
+- [ ] Database migrations applied
+- [ ] SSL certificates installed
+- [ ] Firewall configured (ports 80, 443)
+- [ ] Backups configured
+- [ ] Redis running
+- [ ] Services auto-start enabled
 
 ## 🤝 Contributing
 

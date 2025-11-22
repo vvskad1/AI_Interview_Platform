@@ -14,11 +14,11 @@ from ..database import get_redis
 
 class EmailService:
     def __init__(self):
-        self.smtp_host = settings.smtp_host
+        self.smtp_host = settings.effective_smtp_host
         self.smtp_port = settings.smtp_port
-        self.smtp_user = settings.smtp_user
-        self.smtp_pass = settings.smtp_pass
-        self.mail_from = settings.mail_from
+        self.smtp_user = settings.effective_smtp_user
+        self.smtp_pass = settings.effective_smtp_pass
+        self.mail_from = settings.effective_mail_from
         self.smtp_configured = bool(self.smtp_user and self.smtp_pass)
         try:
             self.redis_client = get_redis()

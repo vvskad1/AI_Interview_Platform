@@ -14,30 +14,32 @@ class Settings(BaseSettings):
     public_base_url: str = "http://localhost:5173"
     backend_base_url: str = "http://localhost:8000"
     
-    # Email Configuration
+    # Email Configuration - supports both naming conventions
     smtp_host: str = "smtp.gmail.com"
+    smtp_server: Optional[str] = None
     smtp_port: int = 587
     smtp_user: str = ""
-    smtp_pass: str = ""
-    mail_from: str = "noreply@example.com"
-    
-    # Alternative names for docker-compose compatibility
-    smtp_server: Optional[str] = None
     smtp_username: Optional[str] = None
+    smtp_pass: str = ""
     smtp_password: Optional[str] = None
+    mail_from: str = "noreply@example.com"
     from_email: Optional[str] = None
     
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        # Map docker-compose variable names to internal names
-        if self.smtp_server:
-            self.smtp_host = self.smtp_server
-        if self.smtp_username:
-            self.smtp_user = self.smtp_username
-        if self.smtp_password:
-            self.smtp_pass = self.smtp_password
-        if self.from_email:
-            self.mail_from = self.from_email
+    @property
+    def effective_smtp_host(self) -> str:
+        return self.smtp_server or self.smtp_host
+    
+    @property
+    def effective_smtp_user(self) -> str:
+        return self.smtp_username or self.smtp_user
+    
+    @property
+    def effective_smtp_pass(self) -> str:
+        return self.smtp_password or self.smtp_pass
+    
+    @property
+    def effective_mail_from(self) -> str:
+        return self.from_email or self.mail_from
     
     # Redis
     redis_url: str = "redis://localhost:6379/0"

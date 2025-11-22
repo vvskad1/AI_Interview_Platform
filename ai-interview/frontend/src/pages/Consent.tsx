@@ -7,7 +7,7 @@ const Consent: React.FC = () => {
   const navigate = useNavigate();
 
   const handleAccept = () => {
-    navigate(`/env/${token}`);
+    navigate(`/otp/${token}`);
   };
 
   const handleDecline = () => {

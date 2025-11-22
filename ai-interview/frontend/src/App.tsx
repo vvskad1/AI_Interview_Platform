@@ -87,7 +87,7 @@ function App() {
         <Route path="/i/:token" element={<InviteLanding />} />
         <Route path="/consent/:token" element={<Consent />} />
         <Route path="/env/:token" element={<EnvCheck />} />
-        <Route path="/otp/:token" element={<Identity />} />
+        <Route path="/otp/:token" element={<OTP />} />
         <Route path="/identity/:token" element={<Identity />} />
         <Route path="/interview/:token" element={<Interview />} />
         

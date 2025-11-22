@@ -378,20 +378,26 @@ const InvitesManagement: React.FC = () => {
             <div className="flex items-center gap-3 rounded-lg px-4 py-2" style={{backgroundColor: '#EBEFFE'}}>
               <Search className="text-[#BB6C43] flex-shrink-0" size={20} />
               <input
+                id="invite-search"
+                name="search"
                 type="text"
                 placeholder="Search by candidate name, email, or job title..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="flex-1 border-0 outline-0 bg-transparent text-[#4A413C] placeholder-gray-500"
+                aria-label="Search invites"
               />
             </div>
           </div>
 
           <select
+            id="filter-status"
+            name="status"
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
             className="px-3 py-2 rounded-lg min-w-0 flex-shrink-0"
             style={{backgroundColor: '#EBEFFE', color: '#4A413C'}}
+            aria-label="Filter by status"
           >
             <option value="">All Statuses</option>
             <option value="pending">Pending</option>
@@ -400,10 +406,13 @@ const InvitesManagement: React.FC = () => {
           </select>
 
           <select
+            id="filter-job"
+            name="job_id"
             value={filterJob}
             onChange={(e) => setFilterJob(e.target.value)}
             className="px-3 py-2 rounded-lg min-w-0 flex-shrink-0"
             style={{backgroundColor: '#EBEFFE', color: '#4A413C'}}
+            aria-label="Filter by job"
           >
             <option value="">All Jobs</option>
             {jobs.map((job) => (
@@ -594,10 +603,12 @@ const InvitesManagement: React.FC = () => {
               </div>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="candidate-select" className="block text-sm font-medium text-gray-700 mb-1">
                     Candidate *
                   </label>
                   <select
+                    id="candidate-select"
+                    name="candidate_id"
                     required
                     value={formData.candidate_id}
                     onChange={(e) => setFormData(prev => ({ ...prev, candidate_id: parseInt(e.target.value) }))}
@@ -614,10 +625,12 @@ const InvitesManagement: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="job-select" className="block text-sm font-medium text-gray-700 mb-1">
                     Job Position *
                   </label>
                   <select
+                    id="job-select"
+                    name="job_id"
                     required
                     value={formData.job_id}
                     onChange={(e) => setFormData(prev => ({ ...prev, job_id: parseInt(e.target.value) }))}
@@ -634,10 +647,12 @@ const InvitesManagement: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="expires-at" className="block text-sm font-medium text-gray-700 mb-1">
                     Expires At (Optional)
                   </label>
                   <input
+                    id="expires-at"
+                    name="expires_at"
                     type="datetime-local"
                     value={formData.expires_at}
                     onChange={(e) => setFormData(prev => ({ ...prev, expires_at: e.target.value }))}
